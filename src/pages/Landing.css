@@ -1,0 +1,419 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+
+/* ---------- Tokens ---------- */
+:root {
+  --rf-bg: #f6f5f1;
+  --rf-surface: #ffffff;
+  --rf-teal: #1f4b43;
+  --rf-teal-dark: #163832;
+  --rf-sage: #dce6de;
+  --rf-amber: #c98a3e;
+  --rf-amber-dark: #a56f2c;
+  --rf-text: #262521;
+  --rf-text-soft: #5a5850;
+  --rf-border: #e4e1d7;
+}
+
+.rf-page {
+  background: var(--rf-bg);
+  color: var(--rf-text);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.55;
+}
+
+.rf-page h1,
+.rf-page h2,
+.rf-page h3 {
+  font-family: 'Fraunces', serif;
+  color: var(--rf-teal-dark);
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.rf-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.rf-kicker {
+  font-size: 0.9rem;
+  color: var(--rf-amber-dark);
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+
+/* ---------- Buttons ---------- */
+.rf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.rf-btn:hover {
+  transform: translateY(-1px);
+}
+.rf-btn-primary {
+  background: var(--rf-teal);
+  color: #fff;
+}
+.rf-btn-primary:hover {
+  background: var(--rf-teal-dark);
+}
+.rf-btn-outline {
+  border-color: var(--rf-teal);
+  color: var(--rf-teal);
+  padding: 8px 18px;
+  font-size: 0.88rem;
+}
+.rf-btn-outline:hover {
+  background: var(--rf-teal);
+  color: #fff;
+}
+.rf-btn-ghost {
+  color: var(--rf-teal-dark);
+  padding: 12px 6px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ---------- Header ---------- */
+.rf-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(246, 245, 241, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rf-border);
+}
+.rf-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+}
+.rf-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: 'Fraunces', serif;
+  font-size: 1.25rem;
+  color: var(--rf-teal-dark);
+}
+.rf-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.rf-nav a,
+.rf-nav-link {
+  color: var(--rf-text-soft);
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+.rf-nav a:hover,
+.rf-nav-link:hover {
+  color: var(--rf-teal-dark);
+}
+
+@media (max-width: 820px) {
+  .rf-nav {
+    gap: 14px;
+  }
+  .rf-nav a {
+    display: none;
+  }
+}
+
+/* ---------- Hero ---------- */
+.rf-hero {
+  padding: 80px 0 100px;
+}
+.rf-hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 56px;
+  align-items: center;
+}
+.rf-hero-copy h1 {
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
+  margin-bottom: 20px;
+}
+.rf-hero-sub {
+  color: var(--rf-text-soft);
+  font-size: 1.05rem;
+  max-width: 46ch;
+  margin-bottom: 32px;
+}
+.rf-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rf-hero-panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+}
+.rf-hero-blob {
+  position: absolute;
+  inset: 0;
+  background: var(--rf-sage);
+  border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
+  animation: rf-float 9s ease-in-out infinite;
+}
+@keyframes rf-float {
+  0%, 100% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; }
+  50% { border-radius: 58% 42% 38% 62% / 55% 60% 40% 45%; }
+}
+.rf-hero-card {
+  position: relative;
+  background: var(--rf-surface);
+  border-radius: 18px;
+  padding: 28px;
+  max-width: 300px;
+  box-shadow: 0 20px 40px -20px rgba(31, 75, 67, 0.25);
+  color: var(--rf-teal-dark);
+}
+.rf-hero-card svg {
+  color: var(--rf-amber);
+}
+.rf-hero-card p {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  margin: 14px 0 10px;
+}
+.rf-hero-card span {
+  font-size: 0.82rem;
+  color: var(--rf-text-soft);
+}
+
+/* ---------- Features ---------- */
+.rf-features {
+  padding: 40px 0 90px;
+}
+.rf-section-head {
+  max-width: 46ch;
+  margin-bottom: 44px;
+}
+.rf-section-head h2 {
+  font-size: 1.9rem;
+  margin-bottom: 10px;
+}
+.rf-section-head p {
+  color: var(--rf-text-soft);
+}
+.rf-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+.rf-feature {
+  padding-top: 20px;
+  border-top: 1px solid var(--rf-border);
+}
+.rf-feature svg {
+  color: var(--rf-amber);
+  margin-bottom: 14px;
+}
+.rf-feature h3 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+.rf-feature p {
+  color: var(--rf-text-soft);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 900px) {
+  .rf-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- Stats ---------- */
+.rf-stats {
+  background: var(--rf-teal);
+  padding: 56px 0;
+}
+.rf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  text-align: left;
+}
+.rf-stat h3 {
+  color: #fff;
+  font-size: 2.4rem;
+  margin-bottom: 8px;
+}
+.rf-stat p {
+  color: #cfe0da;
+  font-size: 0.92rem;
+  max-width: 30ch;
+}
+
+@media (max-width: 700px) {
+  .rf-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Booking ---------- */
+.rf-booking {
+  padding: 90px 0;
+}
+.rf-booking-inner {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 48px;
+  background: var(--rf-surface);
+  border: 1px solid var(--rf-border);
+  border-radius: 24px;
+  padding: 48px;
+}
+.rf-booking-copy h2 {
+  font-size: 1.8rem;
+  margin: 4px 0 14px;
+}
+.rf-booking-copy p {
+  color: var(--rf-text-soft);
+}
+.rf-booking-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.rf-booking-form input {
+  grid-column: span 1;
+  padding: 13px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--rf-border);
+  background: var(--rf-bg);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+}
+.rf-booking-form input:focus {
+  outline: 2px solid var(--rf-teal);
+  outline-offset: 1px;
+}
+.rf-booking-form button {
+  grid-column: span 2;
+  justify-self: start;
+  margin-top: 6px;
+}
+
+@media (max-width: 800px) {
+  .rf-booking-inner {
+    grid-template-columns: 1fr;
+    padding: 32px;
+  }
+  .rf-booking-form {
+    grid-template-columns: 1fr;
+  }
+  .rf-booking-form button {
+    grid-column: span 1;
+  }
+}
+
+/* ---------- Privacy ---------- */
+.rf-privacy {
+  padding: 40px 0 100px;
+}
+.rf-privacy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.rf-privacy-copy h2 {
+  font-size: 1.8rem;
+  margin: 4px 0 14px;
+}
+.rf-privacy-copy p {
+  color: var(--rf-text-soft);
+  margin-bottom: 20px;
+}
+.rf-privacy-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.rf-privacy-list li {
+  padding-left: 20px;
+  position: relative;
+  color: var(--rf-text-soft);
+  font-size: 0.94rem;
+}
+.rf-privacy-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rf-amber);
+}
+.rf-privacy-image img {
+  width: 100%;
+  border-radius: 20px;
+  display: block;
+}
+
+@media (max-width: 800px) {
+  .rf-privacy-grid {
+    grid-template-columns: 1fr;
+  }
+  .rf-privacy-image {
+    order: -1;
+  }
+}
+
+/* ---------- Footer ---------- */
+.rf-footer {
+  border-top: 1px solid var(--rf-border);
+  padding: 24px 0;
+}
+.rf-footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: var(--rf-text-soft);
+}
+.rf-footer-social {
+  display: flex;
+  gap: 14px;
+}
+.rf-footer-social a {
+  color: var(--rf-text-soft);
+}
+.rf-footer-social a:hover {
+  color: var(--rf-teal-dark);
+}
+.rf-footer-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--rf-teal-dark);
+  text-decoration: none;
+  font-weight: 500;
+}
