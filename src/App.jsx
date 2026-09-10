@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import {
   Home,
   Assessment,
-  Track,
   Chat,
   Profile,
   Landing,
@@ -36,7 +35,6 @@ function App() {
       <Routes>
         <Route exact path="/home" element={<Home />} />
         <Route path="/assessment" element={<Assessment />} />
-        <Route path="/track" element={<Track />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<Landing />} />

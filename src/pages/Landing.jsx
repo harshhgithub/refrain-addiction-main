@@ -35,6 +35,8 @@ function Landing() {
           background: rgba(7,17,31,.94);
           backdrop-filter: blur(14px);
           border-bottom: 1px solid var(--modern-border);
+          min-height: 58px;
+          padding: 4px 0;
         }
 
         .modern-logo,
