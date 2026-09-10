@@ -1,91 +1,196 @@
-import React, { useState } from "react"
-import axios from "axios"
-import { useNavigate, Link } from "react-router-dom"
-import useSharedStore from './Store';
-
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import useSharedStore from "./Store";
 
 function Login() {
+  const history = useNavigate();
 
-    const history=useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const [email,setEmail]=useState('')
-    const [password,setPassword]=useState('')
-    const setSharedData = useSharedStore((state) => state.setSharedData);
+  const setSharedData = useSharedStore(
+    (state) => state.setSharedData
+  );
 
-    async function submit(e){
-        e.preventDefault();
-        try{
+  async function submit(e) {
+    e.preventDefault();
 
-            await axios.post("http://localhost:8000/",{
-                email,password
-            })
-            .then(res=>{
-                if(res.data==="exist"){
-                    setSharedData(email);
-                    history("/home")
-
-                }
-                else if(res.data==="notexist"){
-                    alert("Invalid Credentials!")
-                }
-            })
-            .catch(e=>{
-                alert("wrong details")
-                console.log(e);
-            })
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/",
+        {
+          email,
+          password,
         }
-        catch(e){
-            console.log(e);
-        }
+      );
+
+      if (res.data === "exist") {
+        setSharedData(email);
+        history("/home");
+      } else if (res.data === "notexist") {
+        alert("Invalid Credentials!");
+      }
+    } catch (e) {
+      alert("Wrong details");
+      console.log(e);
     }
+  }
 
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
-            <div className="flex flex-col items-center justify-center w-full h-full flex-1 text-center">
+  return (
+    <div className="min-h-screen bg-[#07111f] text-white flex items-center justify-center px-4 py-10 relative overflow-hidden">
 
-            <div className="bg-white items-center justify-center rounded-2xl shadow-2xl flex w-2/5 max-w-4xl">
-                <div className="w-full">
-                    <div className="text-3xl font-bold text-blue-500 mt-10">
-                        Registered User Login
-                    </div>
+      {/* Background Glow */}
+      <div className="absolute top-[-180px] left-[-150px] w-[450px] h-[450px] bg-cyan-500/10 rounded-full blur-3xl"></div>
 
-                    <form action="POST">
-                        <div className="flex flex-col items-center mt-4">
-                            
-                            <div className="m-3 w-1/2">
+      <div className="absolute bottom-[-200px] right-[-150px] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl"></div>
 
-                                <input type="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  onChange={(e) => { setEmail(e.target.value) }} placeholder="name@mail.com"  />
-                            </div>
-                            <div className="m-3 w-1/2">
-                                <input type="password" className="bg-gray-50 border  border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password"  />
-                            </div>
-                            <div className="mt-2">
-                                <button  onClick={submit}  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                                    Sign In
-                                </button>
-                            </div>
-                        </div>
-                    </form>
 
-                    <div className="">
-                        or
-                    </div>
+      {/* Login Container */}
+      <div className="relative w-full max-w-lg">
 
-                    <div className="mb-3 mt-2 hover:underline hover:text-blue-500">
-                        <Link to="/register">New User? Register</Link>
-                        
-                    </div>
-                    <div className="mb-6 ">
-                       <Link className="hover:underline text-blue-500 hover:text-blue-900" to="/">Click here </Link>
-                        to return to the Home page
-                    </div>
-                    
-                </div>
+        {/* Login Card */}
+        <div className="bg-[#0b1b2d]/90 backdrop-blur-xl border border-slate-700/60 rounded-2xl shadow-2xl px-7 sm:px-10 py-10">
+
+          {/* Header */}
+          <div className="text-center mb-8">
+
+            {/* Logo */}
+            <div className="flex justify-center mb-5">
+
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+
+                <span className="text-xl font-bold text-white">
+                  R
+                </span>
+
+              </div>
+
             </div>
 
+
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
+              Welcome Back
+            </h1>
+
+            <p className="text-slate-400 text-sm mt-2">
+              Sign in to continue your journey with Refrain.
+            </p>
+
+          </div>
+
+
+          {/* Login Form */}
+          <form onSubmit={submit}>
+
+            {/* Email */}
+            <div className="mb-5">
+
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Email Address
+              </label>
+
+              <input
+                type="email"
+                value={email}
+                onChange={(e) =>
+                  setEmail(e.target.value)
+                }
+                placeholder="name@mail.com"
+                required
+                className="w-full px-4 py-3 rounded-lg bg-[#071525] border border-slate-700 text-white placeholder-slate-500 outline-none transition focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+              />
+
+            </div>
+
+
+            {/* Password */}
+            <div className="mb-6">
+
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Password
+              </label>
+
+              <input
+                type="password"
+                value={password}
+                onChange={(e) =>
+                  setPassword(e.target.value)
+                }
+                placeholder="Enter your password"
+                required
+                className="w-full px-4 py-3 rounded-lg bg-[#071525] border border-slate-700 text-white placeholder-slate-500 outline-none transition focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+              />
+
+            </div>
+
+
+            {/* Sign In Button */}
+            <button
+              type="submit"
+              className="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold transition-all duration-200 shadow-lg shadow-blue-600/20 hover:shadow-cyan-500/20"
+            >
+              Sign In
+            </button>
+
+          </form>
+
+
+          {/* Divider */}
+          <div className="flex items-center gap-3 my-7">
+
+            <div className="flex-1 h-px bg-slate-700"></div>
+
+            <span className="text-xs text-slate-500">
+              OR
+            </span>
+
+            <div className="flex-1 h-px bg-slate-700"></div>
+
+          </div>
+
+
+          {/* Register */}
+          <div className="text-center mb-5">
+
+            <span className="text-sm text-slate-400">
+              Don't have an account?
+            </span>
+
+            <Link
+              to="/register"
+              className="ml-1 text-sm text-cyan-400 hover:text-cyan-300 font-medium transition"
+            >
+              Create Account
+            </Link>
+
+          </div>
+
+
+          {/* Back to Home */}
+          <div className="text-center">
+
+            <Link
+              to="/"
+              className="text-sm text-slate-400 hover:text-cyan-400 transition"
+            >
+              ← Back to Home
+            </Link>
+
+          </div>
+
         </div>
-        </div>
-    )
+
+
+        {/* Footer */}
+        <p className="text-center text-xs text-slate-600 mt-5">
+          Refrain • Addiction Support & Recovery Platform
+        </p>
+
+      </div>
+
+    </div>
+  );
 }
 
-export default Login
+export default Login;
