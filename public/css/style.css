@@ -182,7 +182,7 @@ a.navbar-brand.logo span {
 .read,
 .book-appo {
     padding: 11px 30px;
-    color: #fff;
+    color: #fefdfd;
     font-size: 1em;
     font-weight: 400;
     /* text-transform: uppercase; */
@@ -199,7 +199,7 @@ a.navbar-brand.logo span {
 }
 
 .book-appo {
-    background: #f54785;
+    background: #0297fb;
 }
 
 /*-- //banner style --*/

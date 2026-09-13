@@ -1,67 +1,286 @@
 #about {
-    display: flex;
-    flex-direction: column;
+  width: 100%;
 }
 
-#heading_how_div {
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 8em;
+.modern-about {
+  min-height: 100vh;
+  background: #f7f7f7;
+  padding: 35px 25px 45px;
+  color: #111827;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.about-header {
+  max-width: 850px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+.about-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #6366f1;
+  margin-bottom: 7px;
 }
 
 #heading_how {
-    position: relative;
-    font-size: 2.0em;
-    margin-bottom: 30px;
-    color: wheat;
-    background: rgb(96, 127, 213);
-
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #111827;
 }
+
+.about-subtitle {
+  margin: 8px auto 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* =========================
+   MAIN CARD
+========================= */
 
 .how_to_use {
-    max-width: 60vw;
-    text-align: center;
-    vertical-align: middle;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 20px;
-    position: relative;
-    box-shadow: 5px 5px 30px 7px rgba(0, 0, 0, 0.25), -5px -5px 30px 7px rgba(0, 0, 0, 0.22);
-    block-size: fit-content;
-    transition: all;
-    transition-duration: 0.5s;
+  max-width: 850px;
+  margin: 0 auto;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 17px;
+
+  padding: 24px 28px;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.035);
 }
 
-.how_to_use::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 20px;
-    padding: 3px;
-    background: rgb(96, 127, 213);
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+/* =========================
+   INTRO
+========================= */
+
+.steps-intro {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 13px 15px;
+
+  background: #f5f3ff;
+  border: 1px solid #e9e5ff;
+  border-radius: 11px;
+
+  margin-bottom: 23px;
 }
 
-.text_how_to_uses {
-    text-align: left;
-    color: rgb(96, 127, 213);
-    font-size: 18px;
-    line-height: 32px;
-    margin-left: 30px;
-    margin-right: 30px;
-    block-size: fit-content;
+.intro-icon {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #6366f1;
+  color: white;
+
+  font-size: 15px;
+  font-weight: 700;
 }
 
-.number_color {
-    color: rgb(96, 127, 213);
+.intro-label {
+  margin: 0;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  color: #3730a3;
+}
+
+.intro-text {
+  margin: 2px 0 0;
+
+  font-size: 11px;
+  color: #6b7280;
+}
+
+/* =========================
+   STEPS
+========================= */
+
+.steps-container {
+  position: relative;
+}
+
+.instruction-step {
+  position: relative;
+
+  display: flex;
+  gap: 16px;
+
+  padding-bottom: 19px;
+}
+
+.instruction-step.last-step {
+  padding-bottom: 0;
+}
+
+/* =========================
+   NUMBER
+========================= */
+
+.step-number {
+  position: relative;
+  z-index: 2;
+
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #111827;
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  transition: all 0.2s ease;
+}
+
+.instruction-step:hover .step-number {
+  background: #6366f1;
+  transform: translateY(-1px);
+}
+
+/* =========================
+   CONNECTOR
+========================= */
+
+.step-line {
+  position: absolute;
+
+  left: 17.5px;
+  top: 36px;
+  bottom: 0;
+
+  width: 1px;
+
+  background: #e5e7eb;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.step-content {
+  flex: 1;
+  padding-top: 1px;
+}
+
+.step-content h3 {
+  margin: 0 0 4px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #111827;
+}
+
+.step-content p {
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.55;
+
+  color: #6b7280;
+}
+
+.step-content b {
+  color: #374151;
+  font-weight: 700;
+}
+
+.step-note {
+  display: inline;
+  margin-left: 6px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  color: #6366f1;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 640px) {
+
+  .modern-about {
+    padding: 25px 15px 35px;
+  }
+
+  .about-header {
+    margin-bottom: 18px;
+  }
+
+  #heading_how {
+    font-size: 28px;
+  }
+
+  .about-subtitle {
+    font-size: 12px;
+  }
+
+  .how_to_use {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  .steps-intro {
+    margin-bottom: 19px;
+  }
+
+  .instruction-step {
+    gap: 12px;
+    padding-bottom: 17px;
+  }
+
+  .step-number {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+  }
+
+  .step-line {
+    left: 15.5px;
+    top: 32px;
+  }
+
+  .step-content h3 {
+    font-size: 13px;
+  }
+
+  .step-content p {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .step-note {
+    display: block;
+    margin-left: 0;
+    margin-top: 3px;
+  }
 }

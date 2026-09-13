@@ -1,324 +1,448 @@
-import React from 'react';
-import { Sidebar } from '../components';
-import okk from '../assets/card__decoration_Stress.png';
-import okkk from '../assets/card__note-decoration.png';
-import './Home.css';
-import moji1 from '../assets/comments__bubble-avatar-1.png';
-import moji3 from '../assets/comments__bubble-avatar-2.png';
-import moji5 from '../assets/comments__bubble-avatar-3.png';
-import moji6 from '../assets/comments__bubble-avatar-4.png';
+import React from "react";
+import { Sidebar } from "../components";
 
 function Home() {
+  const navigate = (path) => {
+    window.location.href = path;
+  };
+
   return (
-    <>
+    <div className="min-h-screen bg-white text-black">
+      <div className="flex min-h-screen">
 
-      <div className='flex'>
-          <div className='h-screen sticky top-0'>
-            < Sidebar />
-          </div>
-          <div style={{ position:"relative" , width: "800px", paddingTop:"4px", margin:"auto"  }}>
-            <section class="hero">
+        {/* SIDEBAR */}
+        <div className="sticky top-0 h-screen">
+          <Sidebar />
+        </div>
 
-            <img
-              class="hero__image"
-              src="./images/hero__image.svg"
-              alt="hero"
-            />
-            <div class="hero__container">
-              <div class="hero__container_left">
-                <h1 class="hero__title">
-                  Your mental health kit in the form of
-                  <span class="underline"> therapy talks</span>
+        {/* MAIN CONTENT */}
+        <div className="flex-1 overflow-x-hidden bg-[#f7f7f7]">
+
+          <div className="mx-auto w-full max-w-6xl px-5 py-8 md:px-8">
+
+            {/* HEADER */}
+            <div className="mb-8 flex items-center justify-between">
+
+              <div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[3px] text-gray-500">
+                  REFRAIN ADDICTION
+                </p>
+
+                <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+                  Welcome back
                 </h1>
+
+                <p className="mt-2 max-w-xl text-sm leading-6 text-gray-500">
+                  Your recovery journey starts with one small step.
+                  Access support, assessment and professional guidance
+                  from one place.
+                </p>
               </div>
-              <div class="hero__container_right">
-                <ul class="hero__list">
-                  <li class="hero__paragraph">
-                    Here you can listen to mental health podcasts.
-                  </li>
-                  <li class="hero__paragraph">
-                    The content is available to those seeking guidance from
-                    professionals who specialize in treating mental health
-                    issues.
-                  </li>
-                  <li class="hero__paragraph">
-                    We offers live sessions with doctors where you can ask
-                    questions and get advice from people with similar health
-                    problems.
-                  </li>
-                </ul>
+
+              {/* Simple profile icon */}
+              <div className="hidden h-12 w-12 items-center justify-center rounded-full bg-black text-white sm:flex">
+                <span className="text-lg font-semibold">
+                  R
+                </span>
+              </div>
+
+            </div>
+
+
+            {/* HERO */}
+            <div className="relative mb-8 overflow-hidden rounded-3xl bg-black p-7 text-white shadow-xl md:p-10">
+
+              {/* Decorative shapes */}
+              <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full border border-white/10" />
+              <div className="absolute -bottom-24 right-24 h-64 w-64 rounded-full border border-white/5" />
+
+              <div className="relative max-w-2xl">
+
+                <div className="mb-5 inline-flex items-center rounded-full border border-white/20 px-3 py-1 text-xs text-gray-300">
+                  YOUR RECOVERY SPACE
+                </div>
+
+                <h2 className="text-3xl font-bold leading-tight md:text-5xl">
+                  You don't have to face
+                  <br />
+                  recovery alone.
+                </h2>
+
+                <p className="mt-5 max-w-xl text-sm leading-7 text-gray-300 md:text-base">
+                  Understand your situation, explore helpful resources,
+                  connect with counselors and take meaningful steps
+                  toward a healthier life.
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => navigate("/assessment")}
+                  className="mt-7 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-gray-200"
+                >
+                  Start Assessment →
+                </button>
+
               </div>
             </div>
-          </section>
 
-          <div class="divider__container">
-            <img class="divider" src="./images/divider.svg" alt="divider" />
-          </div>
 
-          <section class="">
-            <h2 class="comments__title mt-8">Some Inspirational Stories 💭</h2>
-            <div className="flex flex-wrap container mx-auto mb-12 ">
-              <div className="mt-8 bg-blue-100 mx-4 border-solid border-2 border-blue-200 rounded-3xl p-3 w-80">
-                <div className="flex text-blue-500 font-bold text-xl mb-2">
-                  <img
-                    className="h-10 w-9 ml-2 mr-2"
-                    src={moji1}
-                    alt="mojimem"
-                  />
-                  🥶Anonymous
-                </div>
-                <div>
-                  Once lost in the dark abyss of addiction, I found the strength
-                  within to break free. 🌟 With every step towards recovery, I
-                  transformed into a resilient butterfly, embracing life's
-                  beauty. 🦋 Today, I'm drug-free and grateful for the gift of a
-                  second chance. 🌈🙌
-                </div>
+            {/* QUICK ACTIONS */}
+            <div className="mb-8">
+
+              <div className="mb-5">
+                <h2 className="text-xl font-bold">
+                  Quick Actions
+                </h2>
+
+                <p className="mt-1 text-sm text-gray-500">
+                  Access the most important features.
+                </p>
               </div>
 
-              <div className="mt-8 bg-blue-100 mx-4 border-solid border-2 border-blue-200 rounded-3xl p-3 w-80">
-                <div className="flex text-blue-500 font-bold text-xl mb-2">
-                  <img
-                    className="h-10 w-9 ml-2 mr-2"
-                    src={moji3}
-                    alt="mojimem"
-                  />
-                  Anonymous✨✅
-                </div>
-                <div>
-                  From the ashes of despair, I rose like a phoenix. The battle
-                  against drug addiction was tough, but I fought with unwavering
-                  determination. Now, I bask in the warmth of sobriety,
-                  embracing each day as a testament to my strength and
-                  resilience. 🌟🌈
-                </div>
-              </div>
 
-              <div className=" mt-8 bg-blue-100 mx-4 border-solid border-2 border-blue-200 rounded-3xl p-3 w-80">
-                <div className="flex text-blue-500 font-bold text-xl mb-2">
-                  <img
-                    className="h-10 w-9 ml-2 mr-2"
-                    src={moji5}
-                    alt="mojimem"
-                  />
-                  Anonymous🚀
-                </div>
-                <div>
-                  In the depths of addiction's prison, I discovered a hidden key
-                  within myself. With self-love and unwavering faith, I unlocked
-                  the shackles of substance abuse. Today, I am a living
-                  testament to the power of inner strength and the limitless
-                  possibilities of recovery. 💖🗝️🌟
-                </div>
-              </div>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
 
-              <div className=" mt-8 bg-blue-100 mx-4 border-solid border-2 border-blue-200 rounded-3xl p-3 w-80">
-                <div className="flex text-blue-500 font-bold text-xl mb-2">
-                  <img
-                    className="h-10 w-9 ml-2 mr-2"
-                    src={moji6}
-                    alt="mojimem"
-                  />
-                  Anonymous😛
-                </div>
-                <div>
-                  Like a fragile bud, I was trapped in addiction's darkness. But
-                  I summoned courage, nurtured my spirit, and bloomed into a
-                  radiant flower of sobriety. Life's vibrancy fills my heart,
-                  and I celebrate each milestone with gratitude and love. 🌺🌈✨
-                </div>
-              </div>
-            </div>
-          </section>
+                {/* ASSESSMENT */}
+                <div
+                  onClick={() => navigate("/assessment")}
+                  className="group cursor-pointer rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-black hover:shadow-lg"
+                >
 
-          <div class="divider__container">
-            <img class="divider" src="./images/divider.svg" alt="divider" />
-          </div>
+                  <div className="mb-5 flex items-center justify-between">
 
-          <section class="tips" id="tips">
-            <h2 class="tips__title">Let us recommend you</h2>
-            <div class="tips__elements">
-              <article class="card card_order">
-                <div class="card__header">ORDER AT WORK</div>
-                <div class="card__content-box">
-                  <ul>
-                    <li class="card__text">
-                      Make sure you have a clear schedule on paper.
-                    </li>
-                    <li class="card__text">
-                      Detect your main distracting elements.
-                    </li>
-                    <li class="card__text">Group your tasks into blocks.</li>
-                    <li class="card__text">
-                      Divide your day into several goals.
-                    </li>
-                    <li>Set clear limitations.</li>
-                  </ul>
-                </div>
-                <div class="card__footer">
-                  People with greater and better performance in the professional
-                  context know how to manage the time dedicated to work
-                </div>
-              </article>
-
-              <article class="card card_pomodoro">
-                <div class="card__header">POMODORO TECHNIQUE</div>
-                <div class="card__content-box">
-                  <div class="card__note">
-                    <div class="card__note-header">
-                      <img src={okkk} alt="null" role="presentation" />
-                      <span class="card__note-icon">✌🏻</span>
-                      <span class="card__note-accent">Take note</span>
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-black text-white">
+                      <span className="text-lg font-bold">
+                        ✓
+                      </span>
                     </div>
-                    <ul class="card__note-list">
-                      <li>Divide the day into the tasks you want to do.</li>
-                      <li>Sort this list by priority.</li>
-                      <li>Schedule your timer.</li>
-                      <li>5 minute break.</li>
-                    </ul>
+
+                    <span className="text-xl text-gray-300 transition group-hover:text-black">
+                      →
+                    </span>
+
                   </div>
-                </div>
-                <div class="card__footer">
-                  This technique is a way to manage time, plan and execute tasks
-                  to be more productive.
-                </div>
-              </article>
 
-              <article class="card card_nutrition">
-                <div class="card__header">FOOD TIPS</div>
-                <div class="card__content-box">
-                  <ul>
-                    <li class="card__text">
-                      Eat fruits, vegetables, and whole grains.
-                    </li>
-                    <li class="card__text">You avoid unhealthy fats.</li>
-                    <li class="card__text">Consume Omega-3 fatty acids.</li>
-                    <li class="card__text">
-                      Learn about the risks and benefits of taking vitamins or
-                      supplements
-                    </li>
-                    <li class="card__text">Watch your weight.</li>
-                  </ul>
-                </div>
-                <div class="card__footer">
-                  In simple terms, eating unhealthy foods, such as processed or
-                  fast food, is very toxic to our body.
-                </div>
-              </article>
+                  <h3 className="text-lg font-bold">
+                    Assessment
+                  </h3>
 
-              <article class="card card_exercise">
-                <div class="card__header">BEST EXERCISES</div>
-                <div class="card__content-box">
-                  <div class="card__note">
-                    <div class="card__note-header">
-                      <img src={okkk} alt="null" role="presentation" />
-                      <span class="card__note-icon">🦾</span>
-                      <span class="card__note-accent">TOP 5</span>
+                  <p className="mt-2 text-sm leading-6 text-gray-500">
+                    Take an assessment to understand your current
+                    situation and identify areas where you may need
+                    support.
+                  </p>
+
+                </div>
+
+
+                {/* COUNSELOR */}
+                <div
+                  onClick={() => navigate("/consultant")}
+                  className="group cursor-pointer rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-black hover:shadow-lg"
+                >
+
+                  <div className="mb-5 flex items-center justify-between">
+
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-gray-50">
+                      <span className="text-xl">
+                        ♧
+                      </span>
                     </div>
-                    <ul class="card__note-list">
-                      <li>Cardio and high intensity exercises.</li>
-                      <li>Tai Chi for stress.</li>
-                      <li>Boxing to burn the adrenaline.</li>
-                      <li>Yoga to center your mind.</li>
-                      <li>Swimming de-stresses and focuses you.</li>
-                    </ul>
+
+                    <span className="text-xl text-gray-300 transition group-hover:text-black">
+                      →
+                    </span>
+
                   </div>
-                </div>
-                <div class="card__footer">
-                  Whether moderate or vigorous, regular exercise offers
-                  mood-boosting benefits.
-                </div>
-              </article>
 
-              <article class="card card_stress">
-                <div class="card__header">WORK STRESS</div>
-                <div class="card__content-box">
-                  <img
-                    src={okk}
-                    alt="stress"
-                    class="card__decoration"
-                    role="presentation"
-                  />
-                  <ul>
-                    <li class="card__text">
-                      Set Limits. Don't push yourself to exhaustion.
-                    </li>
-                    <li class="card__text">You can always ask for help.</li>
-                    <li class="card__text">Disconnect from work.</li>
-                    <li class="card__text">
-                      Take care of your health and money.
-                    </li>
-                  </ul>
+                  <h3 className="text-lg font-bold">
+                    Find a Counselor
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-6 text-gray-500">
+                    Connect with professional counselors and get
+                    guidance when you need someone to talk to.
+                  </p>
+
                 </div>
-                <div class="card__footer">
-                  Burnout, called professional burnout syndrome, is the response
-                  given by a person with strong physical and emotional
-                  exhaustion.
+
+
+                {/* CHAT */}
+                <div
+                  onClick={() => navigate("/chat")}
+                  className="group cursor-pointer rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-black hover:shadow-lg"
+                >
+
+                  <div className="mb-5 flex items-center justify-between">
+
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-gray-50">
+                      <span className="text-xl">
+                        ◌
+                      </span>
+                    </div>
+
+                    <span className="text-xl text-gray-300 transition group-hover:text-black">
+                      →
+                    </span>
+
+                  </div>
+
+                  <h3 className="text-lg font-bold">
+                    Chat Support
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-6 text-gray-500">
+                    Communicate with your support network and get
+                    assistance during your recovery journey.
+                  </p>
+
                 </div>
-              </article>
+
+              </div>
+
             </div>
-          </section>
 
-          <div class="divider__container">
-            <img class="divider" src="./images/divider.svg" alt="divider" />
+
+            {/* RECOVERY TOOLS */}
+            <div className="mb-8">
+
+              <div className="mb-5">
+                <h2 className="text-xl font-bold">
+                  Recovery Tools
+                </h2>
+
+                <p className="mt-1 text-sm text-gray-500">
+                  Tools designed to help you stay focused.
+                </p>
+              </div>
+
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+                {/* WEBSITE BLOCKER */}
+                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+
+                  <div className="flex items-start gap-5">
+
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black text-white">
+                      <span className="text-lg">
+                        ⛨
+                      </span>
+                    </div>
+
+                    <div className="flex-1">
+
+                      <h3 className="text-lg font-bold">
+                        Website Blocker
+                      </h3>
+
+                      <p className="mt-2 text-sm leading-6 text-gray-500">
+                        Reduce exposure to websites that may trigger
+                        unhealthy habits or distractions.
+                      </p>
+
+                      <button
+                        type="button"
+                        onClick={() => navigate("/blockweb")}
+                        className="mt-4 rounded-lg border border-black px-4 py-2 text-xs font-semibold transition hover:bg-black hover:text-white"
+                      >
+                        Open Tool
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                {/* SUPPORT */}
+                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+
+                  <div className="flex items-start gap-5">
+
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-gray-50">
+                      <span className="text-lg">
+                        +
+                      </span>
+                    </div>
+
+                    <div className="flex-1">
+
+                      <h3 className="text-lg font-bold">
+                        Personal Support
+                      </h3>
+
+                      <p className="mt-2 text-sm leading-6 text-gray-500">
+                        Explore the support modules available on
+                        Refrain to help you understand and manage
+                        addictive habits.
+                      </p>
+
+                      <button
+                        type="button"
+                        onClick={() => navigate("/dashboard")}
+                        className="mt-4 rounded-lg border border-black px-4 py-2 text-xs font-semibold transition hover:bg-black hover:text-white"
+                      >
+                        Explore
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            {/* HOW IT WORKS */}
+            <div className="mb-8 rounded-3xl border border-gray-200 bg-white p-7 shadow-sm md:p-9">
+
+              <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+
+                <div>
+
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[2px] text-gray-400">
+                    HOW IT WORKS
+                  </p>
+
+                  <h2 className="text-2xl font-bold leading-tight md:text-3xl">
+                    One platform.
+                    <br />
+                    Multiple ways to get help.
+                  </h2>
+
+                  <p className="mt-4 text-sm leading-7 text-gray-500">
+                    Refrain brings assessment, support, professional
+                    counseling and recovery tools together in one
+                    simple platform.
+                  </p>
+
+                </div>
+
+
+                <div className="space-y-6">
+
+                  {/* STEP 1 */}
+                  <div className="flex gap-4">
+
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black text-xs font-bold text-white">
+                      01
+                    </div>
+
+                    <div>
+                      <h3 className="font-bold">
+                        Assess
+                      </h3>
+
+                      <p className="mt-1 text-sm leading-6 text-gray-500">
+                        Understand your current situation through
+                        our assessment.
+                      </p>
+                    </div>
+
+                  </div>
+
+
+                  {/* STEP 2 */}
+                  <div className="flex gap-4">
+
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black text-xs font-bold text-white">
+                      02
+                    </div>
+
+                    <div>
+                      <h3 className="font-bold">
+                        Connect
+                      </h3>
+
+                      <p className="mt-1 text-sm leading-6 text-gray-500">
+                        Connect with counselors and access support.
+                      </p>
+                    </div>
+
+                  </div>
+
+
+                  {/* STEP 3 */}
+                  <div className="flex gap-4">
+
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black text-xs font-bold text-white">
+                      03
+                    </div>
+
+                    <div>
+                      <h3 className="font-bold">
+                        Recover
+                      </h3>
+
+                      <p className="mt-1 text-sm leading-6 text-gray-500">
+                        Build healthier habits with practical tools
+                        and continued support.
+                      </p>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            {/* FINAL CTA */}
+            <div className="mb-6 rounded-3xl bg-[#111111] p-7 text-white md:p-9">
+
+              <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+
+                <div>
+
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[2px] text-gray-500">
+                    NEED SUPPORT?
+                  </p>
+
+                  <h2 className="text-2xl font-bold">
+                    Take the first step today.
+                  </h2>
+
+                  <p className="mt-2 max-w-xl text-sm leading-6 text-gray-400">
+                    Start your assessment and learn more about the
+                    support available to you.
+                  </p>
+
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => navigate("/assessment")}
+                  className="shrink-0 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-gray-200"
+                >
+                  Start Assessment →
+                </button>
+
+              </div>
+
+            </div>
+
+
+            {/* FOOTER */}
+            <div className="border-t border-gray-200 py-6 text-center">
+
+              <p className="text-xs text-gray-400">
+                Refrain Addiction • Recovery & Support Platform
+              </p>
+
+            </div>
+
           </div>
 
-          <section class="podcast" id="podcast">
-            <div class="podcast__container">
-              <h2 class="podcast__title">Check out these Podcasts✨</h2>
-              <article class="podcast__show">
-                <iframe
-                  src="https://open.spotify.com/embed/episode/1upfSt0Tdb0xHj0mRxNHc2?utm_source=generator&theme=0&t=0"
-                  width="100%"
-                  height="152"
-                  frameborder="0"
-                  allowfullscreen=""
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
-                ></iframe>
-                <div class="podcast__tags-container">
-                  <div class="podcast__tags">HEALTH</div>
-                  <div class="podcast__tags">SELF-ESTEEM</div>
-                  <div class="podcast__tags">KNOWLEDGE</div>
-                </div>
-              </article>
-              <article class="podcast__show">
-                <iframe
-                  src="https://open.spotify.com/embed/episode/4hUBzLOJOWQsdNM6RVLQKc?utm_source=generator&theme=0&t=0"
-                  width="100%"
-                  height="152"
-                  frameborder="0"
-                  allowfullscreen=""
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
-                ></iframe>
-                <div class="podcast__tags-container">
-                  <div class="podcast__tags">TESTIMONIALS</div>
-                  <div class="podcast__tags">REFLECTION</div>
-                  <div class="podcast__tags">BEHAVIOR</div>
-                </div>
-              </article>
-              <article class="podcast__show">
-                <iframe
-                  src="https://open.spotify.com/embed/episode/4c2XpIR1vlhAgORrIxRrxm?utm_source=generator&theme=0&t=0"
-                  width="100%"
-                  height="152"
-                  frameborder="0"
-                  allowfullscreen=""
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
-                ></iframe>
-                <div class="podcast__tags-container">
-                  <div class="podcast__tags">HABITS</div>
-                  <div class="podcast__tags">MOTIVATION</div>
-                  <div class="podcast__tags">OPTIMISM</div>
-                </div>
-              </article>
-            </div>
-          </section>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

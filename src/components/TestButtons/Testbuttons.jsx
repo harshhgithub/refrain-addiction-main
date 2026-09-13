@@ -1,183 +1,158 @@
-import React ,{useRef, useState} from 'react'
-import "./Testbuttons.scss"
-import axios from 'axios'
-import fileDownload from "js-file-download"
+import React, { useRef, useState } from "react";
+import "./Testbuttons.scss";
+import axios from "axios";
+import fileDownload from "js-file-download";
+
 const url = "https://blocking-web-extn.vercel.app/api/routes";
 // const url = "http://localhost:8000/api/routes";
 
-  let web_set = new Set();
-  let boolArr = [false,false,false,false,false,false,false,false,false];
-
-
+let web_set = new Set();
+let boolArr = [false, false, false, false, false, false, false, false, false];
 
 function Testbuttons() {
-  
- const [classname0,setClassname0] = useState("white");
- const [classname1,setClassname1] = useState("white");
- const [classname2,setClassname2] = useState("white");
- const [classname3,setClassname3] = useState("white");
- const [classname4,setClassname4] = useState("white");
- const [classname5,setClassname5] = useState("white");
- const [classname6,setClassname6] = useState("white");
- const [classname7,setClassname7] = useState("white");
- const [classname8,setClassname8] = useState("white");
+  const [classname0, setClassname0] = useState("white");
+  const [classname1, setClassname1] = useState("white");
+  const [classname2, setClassname2] = useState("white");
+  const [classname3, setClassname3] = useState("white");
+  const [classname4, setClassname4] = useState("white");
+  const [classname5, setClassname5] = useState("white");
+  const [classname6, setClassname6] = useState("white");
+  const [classname7, setClassname7] = useState("white");
+  const [classname8, setClassname8] = useState("white");
 
- const [downloadMessage,setDownloadMessage] = useState("Create and Download File") 
-  const websiteAdd = (i,element) =>{
-    if(boolArr[i] === false){
+  const [downloadMessage, setDownloadMessage] = useState(
+    "Create and Download File"
+  );
+
+  const websiteAdd = (i, element) => {
+    if (boolArr[i] === false) {
       web_set.add(element);
-      console.log(web_set);
-      console.log(boolArr);
       boolArr[i] = true;
-    }
-    else{
+    } else {
       web_set.delete(element);
       boolArr[i] = false;
-      console.log(web_set)
     }
-  }
+
+    console.log(web_set);
+  };
 
   function buttonUpdate(i) {
-
-    switch(i) {
+    switch (i) {
       case 0:
-        if(classname0 === "white"){
-          setClassname0("orange")
-        }
-        else
-          setClassname0("white")
+        setClassname0(classname0 === "white" ? "orange" : "white");
         break;
 
-        case 1:
-        if(classname1 === "white"){
-          setClassname1("orange")
-        }
-        else
-          setClassname1("white")
+      case 1:
+        setClassname1(classname1 === "white" ? "orange" : "white");
         break;
 
       case 2:
-        if(classname2 === "white")
-          setClassname2("orange")
-        else
-          setClassname2("white")
+        setClassname2(classname2 === "white" ? "orange" : "white");
         break;
+
       case 3:
-        if(classname3 === "white")
-        setClassname3("orange")
-      else
-        setClassname3("white")
+        setClassname3(classname3 === "white" ? "orange" : "white");
         break;
 
       case 4:
-        if(classname4 === "white")
-        setClassname4("orange")
-      else
-        setClassname4("white")
+        setClassname4(classname4 === "white" ? "orange" : "white");
         break;
 
       case 5:
-        if(classname5 === "white")
-        setClassname5("orange")
-      else
-        setClassname5("white")
+        setClassname5(classname5 === "white" ? "orange" : "white");
         break;
 
       case 6:
-        if(classname6 === "white")
-        setClassname6("orange")
-      else
-        setClassname6("white")
+        setClassname6(classname6 === "white" ? "orange" : "white");
         break;
 
       case 7:
-        if(classname7 === "white")
-        setClassname7("orange")
-      else
-        setClassname7("white")
+        setClassname7(classname7 === "white" ? "orange" : "white");
         break;
 
       case 8:
-        if(classname8 === "white")
-        setClassname8("orange")
-      else
-        setClassname8("white")
+        setClassname8(classname8 === "white" ? "orange" : "white");
         break;
-   
+
       default:
-        console.log("error")
+        console.log("error");
     }
+  }
 
-   }
-
-   const add_web = (i,element) =>{
-    websiteAdd(i,element);
+  const add_web = (i, element) => {
+    websiteAdd(i, element);
     buttonUpdate(i);
-  }
+  };
 
-  
+  const inputText = useRef(null);
 
-  let inputText = useRef(null);  // provided reference to the input tag in the component
+  const addCustomUrl = () => {
+    const value = inputText.current.value.trim();
 
-  const addCustomUrl = () =>{
-    if(inputText.current.value.includes(".")){
-      let url = inputText.current.value;
-      let urlArr = url.split("/")
-      
-      let websiteArr = urlArr[2].split(".")
+    if (!value) return;
 
-      if(websiteArr.length === 2){
-        web_set.add(websiteArr[0]);
+    if (value.includes(".")) {
+      let urlValue = value;
+
+      let urlArr = urlValue.split("/");
+
+      let websiteArr;
+
+      if (urlArr.length > 2 && urlArr[2]) {
+        websiteArr = urlArr[2].split(".");
+      } else {
+        websiteArr = urlValue.split(".");
       }
-      else 
-      web_set.add(websiteArr[1]);
-     
-      inputText.current.value = "Input Received"
-      setTimeout(() => {
-        inputText.current.value = ""
-       
+
+      if (websiteArr.length === 2) {
+        web_set.add(websiteArr[0]);
+      } else {
+        web_set.add(websiteArr[1]);
+      }
+    } else {
+      web_set.add(value);
+    }
+
+    inputText.current.value = "Input Received";
+
+    setTimeout(() => {
+      inputText.current.value = "";
     }, 2000);
-    }
-    else{
-     web_set.add(inputText.current.value);
-     inputText.current.value = "Input Received"
-     setTimeout(() => {
-      inputText.current.value = ""
-      
-   }, 2000);
-    }
-  }
+  };
 
-
-  // function to handle post and get request to and from the backend
+  // Existing download functionality
   const on_createfile = async (e) => {
-    let arr =Array.from(web_set)
+    let arr = Array.from(web_set);
+
     e.preventDefault();
-  
+
     try {
-      const resp = await axios.post(url,{web_arr:arr});
+      const resp = await axios.post(url, {
+        web_arr: arr,
+      });
+
       console.log(resp.data);
+
       web_set.clear();
-      setDownloadMessage("Your download will start shortly")
+
+      setDownloadMessage("Your download will start shortly");
 
       setTimeout(() => {
         try {
-     
-          axios.get(url, {
-            responseType: 'blob',
-          })
-          .then((res) => {
-            fileDownload(res.data, "download.zip")
-          })
+          axios
+            .get(url, {
+              responseType: "blob",
+            })
+            .then((res) => {
+              fileDownload(res.data, "download.zip");
+            });
+        } catch (error) {
+          console.log("error");
         }
-       catch (error) {
-        console.log("error")
-      }
-       
-      },3000)
+      }, 3000);
 
       setTimeout(() => {
-        setDownloadMessage("Create and Download File")
+        setDownloadMessage("Create and Download File");
       }, 3000);
     } catch (error) {
       console.log(error.response);
@@ -192,35 +167,214 @@ function Testbuttons() {
     setClassname6("white");
     setClassname7("white");
     setClassname8("white");
-   
+
+    boolArr = [false, false, false, false, false, false, false, false, false];
   };
 
+  const websites = [
+    {
+      name: "YouTube",
+      value: "youtube",
+      id: 0,
+      className: classname0,
+    },
+    {
+      name: "Facebook",
+      value: "facebook",
+      id: 1,
+      className: classname1,
+    },
+    {
+      name: "Discord",
+      value: "discord",
+      id: 2,
+      className: classname2,
+    },
+    {
+      name: "Instagram",
+      value: "instagram",
+      id: 3,
+      className: classname3,
+    },
+    {
+      name: "Prime Video",
+      value: "primevideo",
+      id: 4,
+      className: classname4,
+    },
+    {
+      name: "Hotstar",
+      value: "hotstar",
+      id: 5,
+      className: classname5,
+    },
+    {
+      name: "Netflix",
+      value: "netflix",
+      id: 6,
+      className: classname6,
+    },
+    {
+      name: "Voot",
+      value: "voot",
+      id: 7,
+      className: classname7,
+    },
+    {
+      name: "Sony LIV",
+      value: "sonyliv",
+      id: 8,
+      className: classname8,
+    },
+  ];
+
   return (
-    <div className='button_page' style={{marginTop:"30px"}} id = "download">
-      <div id="button_page_heading">
-        <h1 id="buttons_heading">Select Websites to Block</h1>
-      </div>
-        <div className='buttons'>
-        
-            <button onClick={() => add_web(0,"youtube")}><p className = {classname0} id="you">Youtube</p></button>
-            <button onClick={() => add_web(1,"facebook")}><p className = {classname1} id="face">Facebook</p></button>
-            <button onClick={() => add_web(2,"discord")}><p className = {classname2} id="dis">Discord</p></button>
-            <button onClick={() => add_web(3,"instagram")}><p className = {classname3} id="insta">Instagram</p></button>
-            <button onClick={() => add_web(4,"primevideo")}><p className = {classname4} id="prime">Prime Video</p></button>
-            <button onClick={() => add_web(5,"hotstar")}><p className = {classname5} id="hot">Hotstar</p></button>
-            <button onClick={() => add_web(6,"netflix")}><p className = {classname6} id="net">Netflix</p></button>
-            <button onClick={() => add_web(7,"voot")}><p className = {classname7} id="voo">Voot</p></button>
-            <button onClick={() => add_web(8,"sonyliv")}><p className = {classname8} id="sony">Sony Liv</p></button>
-            
+    <div className="blocker-page" id="download">
+
+      <div className="blocker-container">
+
+        {/* Header */}
+        <div className="blocker-header">
+
+          <div className="blocker-eyebrow">
+            WEBSITE BLOCKER
           </div>
-          <div className='custom_url_div'>
-          <input type="text" id="custom_url" ref = {inputText} placeholder='Enter website name or url' />
-              <button onClick={addCustomUrl} id="custom_url_add_button">Add Website</button>
+
+          <h1>
+            Select Websites to Block
+          </h1>
+
+          <p>
+            Choose the websites you want to restrict and create your
+            personalized browser extension.
+          </p>
+
         </div>
-            <div className='candd ' style={{marginRight:"auto",marginLeft:"auto"}}>
-              <button onClick={on_createfile} id="create_download">{downloadMessage}</button>
+
+        {/* Website Selection */}
+        <div className="website-card">
+
+          <div className="card-heading">
+
+            <div>
+              <h2>
+                Popular Websites
+              </h2>
+
+              <p>
+                Select one or more websites
+              </p>
             </div>
+
+            <span className="selection-info">
+              9 options
+            </span>
+
+          </div>
+
+          <div className="buttons">
+
+            {websites.map((website) => (
+              <button
+                key={website.value}
+                onClick={() => add_web(website.id, website.value)}
+                className={`website-button ${website.className}`}
+              >
+                <span className="website-number">
+                  {String(website.id + 1).padStart(2, "0")}
+                </span>
+
+                <span>
+                  {website.name}
+                </span>
+
+                {website.className === "orange" && (
+                  <span className="selected-mark">
+                    ✓
+                  </span>
+                )}
+              </button>
+            ))}
+
+          </div>
+
+          {/* Custom URL */}
+          <div className="custom-url-section">
+
+            <div className="custom-heading">
+              <div>
+                <h3>
+                  Add another website
+                </h3>
+
+                <p>
+                  Enter a website name or URL
+                </p>
+              </div>
+            </div>
+
+            <div className="custom-url-div">
+
+              <input
+                type="text"
+                id="custom_url"
+                ref={inputText}
+                placeholder="Enter website name or URL"
+              />
+
+              <button
+                onClick={addCustomUrl}
+                id="custom_url_add_button"
+              >
+                Add Website
+              </button>
+
+            </div>
+
+          </div>
+
+          {/* Download */}
+          <div className="download-section">
+
+            <div className="download-info">
+
+              <div className="download-icon">
+                ↓
+              </div>
+
+              <div>
+                <h3>
+                  Create your blocker
+                </h3>
+
+                <p>
+                  Your extension will be packaged as a ZIP file.
+                </p>
+              </div>
+
+            </div>
+
+            <button
+              onClick={on_createfile}
+              id="create_download"
+            >
+              {downloadMessage}
+              <span>→</span>
+            </button>
+
+          </div>
+
+        </div>
+
+        {/* Footer note */}
+        <p className="blocker-note">
+          You can select multiple websites before creating your extension.
+        </p>
+
+      </div>
+
     </div>
-  )
+  );
 }
-export default Testbuttons
+
+export default Testbuttons;
