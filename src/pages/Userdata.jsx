@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { Sideadmin, UserCard } from '../components'
+import React, { useEffect, useState } from 'react';
+import { Sideadmin, UserCard } from '../components';
 import axios from 'axios';
 
 function Userdata() {
-
   const [usrs, setUsrs] = useState([]);
 
-
-useEffect(() => {
+  useEffect(() => {
     const fetchTheUsers = async () => {
       try {
         const response = await axios.get(
@@ -23,37 +21,73 @@ useEffect(() => {
     fetchTheUsers();
   }, []);
 
-
   return (
-    <div className='flex'>
-      <div className='h-screen sticky top-0'>
-        <Sideadmin/>
-      </div>
-      
-         <div className=''>
-          <div className='ml-96 text-4xl font-bold mt-6'>
-            List of users connected to the website....!
+    <div className="min-h-screen bg-[#f6f6f6]">
+
+      {/* Fixed Sidebar */}
+      <Sideadmin />
+
+      {/* Main Content */}
+      <main className="ml-56 min-h-screen px-10 py-10">
+
+        <div className="max-w-7xl mx-auto">
+
+          {/* Header */}
+          <div className="mb-10">
+            <p className="text-xs font-semibold tracking-[2px] text-gray-400 uppercase mb-2">
+              Management
+            </p>
+
+            <div className="flex items-end justify-between">
+              <div>
+                <h1 className="text-4xl font-bold text-gray-900">
+                  Connected Users
+                </h1>
+
+                <p className="text-gray-500 mt-2">
+                  View users connected to the ReClaimYou platform.
+                </p>
+              </div>
+
+              {/* User Count */}
+              <div className="bg-white border border-gray-200 rounded-xl px-5 py-3">
+                <p className="text-xs text-gray-400 uppercase tracking-wide">
+                  Total Users
+                </p>
+
+                <p className="text-2xl font-bold text-gray-900 mt-1">
+                  {usrs.length}
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="ml-72 mt-8">
+
+          {/* Users List */}
+          <div className="space-y-4">
+
             {usrs.map((user) => (
-              <>
-                <button 
-                className=' bg-blue-100 border-solid border-2 border-blue-200 rounded-2xl p-2 w-3/4'>
-                  <UserCard
-                    key={user.id}
-                    name={user.name}
-                    email={user.email}
-                    college={user.college}
-                    addiction={user.addiction}
-                    city={user.city}
-                  />
-                </button>
-              </>
+              <div
+                key={user.id}
+                className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-gray-300 hover:shadow-sm transition duration-200"
+              >
+                <UserCard
+                  name={user.name}
+                  email={user.email}
+                  college={user.college}
+                  addiction={user.addiction}
+                  city={user.city}
+                />
+              </div>
             ))}
+
           </div>
-         </div>
-      </div>
-  )
+
+        </div>
+
+      </main>
+
+    </div>
+  );
 }
 
-export default Userdata
+export default Userdata;

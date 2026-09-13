@@ -3,14 +3,19 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Sidecounc } from '../components';
+import useSharedStore from './Store';
 function Dashboard() {
   const [isApproved, setIsApproved] = useState(false);
   const [appointmentRequests, setAppointmentRequests] = useState([]);
 
 
   const location = useLocation();
-  console.log(location.state.id);
-  const email = location.state.id;
+
+const storedEmail = useSharedStore((state) => state.sharedData);
+
+const email = location.state?.id || storedEmail;
+
+console.log(email);
   useEffect(() => {
     const fetchAppointmentRequests = async () => {
       try {
