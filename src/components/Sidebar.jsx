@@ -6,6 +6,7 @@ import { BsPerson } from "react-icons/bs";
 import { useMediaQuery } from "react-responsive";
 import { MdMenu } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
+import { MdSupportAgent } from "react-icons/md";
 import {
   MdOutlineAssessment,
   MdChat,
@@ -143,7 +144,7 @@ const Sidebar = ({ email }) => {
           max-w-[16rem]
           w-[16rem]
           overflow-hidden
-          md:relative
+          md:sticky md:top-0
           fixed
           h-screen
           shadow-sm
@@ -295,6 +296,29 @@ const Sidebar = ({ email }) => {
                 </span>
               </NavLink>
             </li>
+
+            {/* Personal Support */}
+<li>
+  <NavLink
+    to="/personal-support"
+    className={navItemClass}
+  >
+    <MdSupportAgent
+      size={22}
+      className="min-w-max"
+    />
+
+    <span
+      className={`
+        whitespace-nowrap
+        transition-all duration-200
+        ${open ? "opacity-100" : "opacity-0"}
+      `}
+    >
+      Personal Support
+    </span>
+  </NavLink>
+</li>
 
             {/* --------------------------------
                 Connect With Us

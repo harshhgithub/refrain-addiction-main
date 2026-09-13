@@ -281,7 +281,7 @@ function Home() {
 
                       <button
                         type="button"
-                        onClick={() => navigate("/dashboard")}
+                        onClick={() => navigate("/personal-support")}
                         className="mt-4 rounded-lg border border-black px-4 py-2 text-xs font-semibold transition hover:bg-black hover:text-white"
                       >
                         Explore

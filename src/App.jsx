@@ -27,6 +27,7 @@ import Support2 from './pages/Support2';
 import Consultant from './pages/Consultant';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import PersonalSupport from "./pages/PersonalSupport";
 import Meet from './pages/Meet';
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
         <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/admindashboard" element={<AdminDashboard />} />
         <Route exact path="/userdata" element={<Userdata />} />
+        <Route path="/personal-support" element={<PersonalSupport />} />
       </Routes>
     </div>
   );
