@@ -1,147 +1,163 @@
 const express = require("express");
-const UserDb = require("../mongo1");
+const AdmZip = require("adm-zip");
+
 const router = express.Router();
-const Model = require("../mongo1")
-var fs = require('fs')
-const admz = require('adm-zip')
-var to_zip = fs.readdirSync(__dirname+'/'+'Extention')
 
+router.post("/", (req, res) => {
+  try {
+    const web_arr = Array.isArray(req.body.web_arr)
+      ? req.body.web_arr
+      : [];
 
-
-router.get('/',(req,res) => {
-   
-    // res.sendFile()
-
-    var zp = new admz();
-    for(var k=0 ; k<to_zip.length ; k++){
-        zp.addLocalFile(__dirname+'/'+'Extention'+'/'+to_zip[k])
+    if (web_arr.length === 0) {
+      return res.status(400).json({
+        message: "Please select at least one website."
+      });
     }
 
+    /*
+      Remove unwanted characters and make all values lowercase.
+    */
+    const websites = web_arr
+      .map((site) => String(site).trim().toLowerCase())
+      .filter(Boolean);
 
-    const file_after_download = 'downloaded_file.zip';
-  
-  
-    const data = zp.toBuffer();
+    /*
+      Convert:
 
-  
-    res.set('Content-Type','application/octet-stream');
-    res.set('Content-Disposition',`attachment; filename=${file_after_download}`);
-    res.set('Content-Length',data.length);
-    res.send(data);
+      youtube
+      instagram
+      netflix
 
+      into:
 
-    
-})
+      *://*.youtube.com/*
+      *://youtube.com/*
+      *://*.instagram.com/*
+      etc.
+    */
 
-router.post('/',async (req,res) => {
-   
-    try {
-        console.log(req.body);
-        const data_obj = Model(req.body);
-        data_obj.save();
-        res.status(201).send(req.body);
+    const rules = websites.map((site, index) => ({
+      id: index + 1,
+      priority: 1,
+      action: {
+        type: "block"
+      },
+      condition: {
+        urlFilter: `||${site}.com`,
+        resourceTypes: ["main_frame"]
+      }
+    }));
 
-        //constructing string 1
-        let data_arr = data_obj.web_arr;
-        let str1 = "let arr = [";
-        for(ele of data_arr)
-        {
-            str1+='"' + ele +'"'+",";
-           
-        }
-        str1 = str1.slice(0, -1)
-        str1+="]"
-       
-        // constructing string 2
-        let str2 = `
-        function makeHTML(){
-            return \`
-            <section class="page_404">
-            <div class="container">
-                <div class="row">	
-                <div class="col-sm-12 ">
-                <div class="col-sm-10 col-sm-offset-1  text-center">
-                <div class="four_zero_four_bg">
-                    <h1 class="text-center ">404</h1>
-                
-                
-                </div>
-                
-                <div class="contant_box_404">
-                <h3 class="h2">
-                Look like you're lost
-                </h3>
-                
-                <p>The page you are looking for is not available!</p>
-                
-                <a href="" class="link_404">Go to Home</a>
-            </div>
-                </div>
-                </div>
-                </div>
-            </div>
-        </section>
-            \`
-        }
-        
-        function makeCSS (){
-            return \`
-            <style>
-          
-        .page_404{ padding:40px 0; background:#fff; font-family: 'Arvo', serif;
-        }
-        
-        .page_404  img{ width:100%;}
-        
-        .four_zero_four_bg{
-         
-         background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
-            height: 400px;
-            background-position: center;
-         }
-         
-         
-         .four_zero_four_bg h1{
-         font-size:80px;
-         }
-         
-          .four_zero_four_bg h3{
-                     font-size:80px;
-                     }
-                     
-                     .link_404{			 
-            color: #fff!important;
-            padding: 10px 20px;
-            background: #39ac31;
-            margin: 20px 0;
-            display: inline-block;}
-            .contant_box_404{ margin-top:-50px;}
-            </style>; 
-            \`
-        };
-        
-        
-        arr.forEach((ele) => {
-            if(window.location.hostname.includes(ele))
-            {
-                document.body.innerHTML = makeHTML();
-                document.head.innerHTML = makeCSS();
-            }
-        })`
+    /*
+      Manifest V3
+    */
+    const manifest = {
+      manifest_version: 3,
 
-        // constructing string 3
-        let str3 = str1+"\n"+str2;
-        console.log(str3)
-     
-        var data = fs.writeFile('./routes/Extention/main.js',str3,'utf8',function(error){
-            if(error) throw error;
-            console.log('file written')
-        });
+      name: "Refrain Website Blocker",
 
-    } catch (error) {
-        console.log("error")
-    }
-   
-})
+      version: "1.0.0",
 
-module.exports = router
+      description:
+        "Website blocker generated by the Refrain Addiction application.",
+
+      permissions: [
+        "declarativeNetRequest"
+      ],
+
+      host_permissions: [
+        "*://*/*"
+      ],
+
+      background: {
+        service_worker: "background.js"
+      },
+
+      declarative_net_request: {
+        rule_resources: [
+          {
+            id: "blocking_rules",
+            enabled: true,
+            path: "rules.json"
+          }
+        ]
+      }
+    };
+
+    /*
+      Rules file
+    */
+    const rulesJson = JSON.stringify(rules, null, 2);
+
+    /*
+      Background service worker.
+      No extra functionality is required here.
+    */
+    const backgroundJs = `
+// Refrain Website Blocker
+
+console.log("Refrain Website Blocker is active.");
+`;
+
+    /*
+      Create ZIP
+    */
+    const zip = new AdmZip();
+
+    zip.addFile(
+      "manifest.json",
+      Buffer.from(JSON.stringify(manifest, null, 2), "utf8")
+    );
+
+    zip.addFile(
+      "rules.json",
+      Buffer.from(rulesJson, "utf8")
+    );
+
+    zip.addFile(
+      "background.js",
+      Buffer.from(backgroundJs, "utf8")
+    );
+
+    /*
+      Generate ZIP buffer
+    */
+    const zipBuffer = zip.toBuffer();
+
+    /*
+      Send ZIP directly to browser
+    */
+    res.setHeader(
+      "Content-Type",
+      "application/zip"
+    );
+
+    res.setHeader(
+      "Content-Disposition",
+      'attachment; filename="refrain-website-blocker.zip"'
+    );
+
+    res.setHeader(
+      "Content-Length",
+      zipBuffer.length
+    );
+
+    res.send(zipBuffer);
+
+  } catch (error) {
+
+    console.error(
+      "Website blocker error:",
+      error
+    );
+
+    res.status(500).json({
+      message: "Failed to create website blocker.",
+      error: error.message
+    });
+
+  }
+});
+
+module.exports = router;

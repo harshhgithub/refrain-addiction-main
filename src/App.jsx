@@ -29,6 +29,7 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import PersonalSupport from "./pages/PersonalSupport";
 import Meet from './pages/Meet';
+import { Streak } from './pages';
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
         <Route exact path="/admindashboard" element={<AdminDashboard />} />
         <Route exact path="/userdata" element={<Userdata />} />
         <Route path="/personal-support" element={<PersonalSupport />} />
+        <Route path="/streak" element={<Streak />} />
       </Routes>
     </div>
   );

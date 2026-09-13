@@ -3,8 +3,7 @@ import "./Testbuttons.scss";
 import axios from "axios";
 import fileDownload from "js-file-download";
 
-const url = "https://blocking-web-extn.vercel.app/api/routes";
-// const url = "http://localhost:8000/api/routes";
+const url = "http://localhost:8000/api/routes";
 
 let web_set = new Set();
 let boolArr = [false, false, false, false, false, false, false, false, false];
@@ -122,54 +121,99 @@ function Testbuttons() {
 
   // Existing download functionality
   const on_createfile = async (e) => {
-    let arr = Array.from(web_set);
+  e.preventDefault();
 
-    e.preventDefault();
+  const arr = Array.from(web_set);
 
-    try {
-      const resp = await axios.post(url, {
+  if (arr.length === 0) {
+    setDownloadMessage("Select at least one website");
+
+    setTimeout(() => {
+      setDownloadMessage("Create and Download File");
+    }, 2000);
+
+    return;
+  }
+
+  try {
+    setDownloadMessage("Creating blocker...");
+
+    const response = await axios.post(
+      url,
+      {
         web_arr: arr,
-      });
+      },
+      {
+        responseType: "blob",
+      }
+    );
 
-      console.log(resp.data);
+    /*
+      Create a downloadable ZIP file
+    */
+    fileDownload(
+      response.data,
+      "refrain-website-blocker.zip"
+    );
 
-      web_set.clear();
+    /*
+      Clear selected websites
+    */
+    web_set.clear();
 
-      setDownloadMessage("Your download will start shortly");
+    /*
+      Reset UI
+    */
+    setDownloadMessage("Download started");
 
-      setTimeout(() => {
-        try {
-          axios
-            .get(url, {
-              responseType: "blob",
-            })
-            .then((res) => {
-              fileDownload(res.data, "download.zip");
-            });
-        } catch (error) {
-          console.log("error");
-        }
-      }, 3000);
+    setTimeout(() => {
+      setDownloadMessage("Create and Download File");
+    }, 2000);
 
-      setTimeout(() => {
-        setDownloadMessage("Create and Download File");
-      }, 3000);
-    } catch (error) {
-      console.log(error.response);
-    }
+  } catch (error) {
 
-    setClassname0("white");
-    setClassname1("white");
-    setClassname2("white");
-    setClassname3("white");
-    setClassname4("white");
-    setClassname5("white");
-    setClassname6("white");
-    setClassname7("white");
-    setClassname8("white");
+    console.error(
+      "Website blocker error:",
+      error
+    );
 
-    boolArr = [false, false, false, false, false, false, false, false, false];
-  };
+    setDownloadMessage(
+      "Failed to create blocker"
+    );
+
+    setTimeout(() => {
+      setDownloadMessage(
+        "Create and Download File"
+      );
+    }, 3000);
+  }
+
+  /*
+    Reset selected button states
+  */
+  setClassname0("white");
+  setClassname1("white");
+  setClassname2("white");
+  setClassname3("white");
+  setClassname4("white");
+  setClassname5("white");
+  setClassname6("white");
+  setClassname7("white");
+  setClassname8("white");
+
+  boolArr = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
+};
+        
 
   const websites = [
     {

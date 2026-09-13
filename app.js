@@ -4,6 +4,7 @@ const { collection, col2 } = require('./mongo');
 const routes = require('./routes/routes');
 const cors = require('cors');
 const shortid = require('shortid');
+const Streak = require('./streak');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -121,6 +122,103 @@ app.patch('/api/counselors/:id/approve', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+// Helper: strip time so we compare calendar days, not timestamps
+function toDayString(date) {
+  return new Date(date).toISOString().slice(0, 10);
+}
+
+// Get (or lazily create) a user's streak record
+app.get('/api/streak/:email', async (req, res) => {
+  const { email } = req.params;
+  try {
+    let streak = await Streak.findOne({ email });
+    if (!streak) {
+      streak = await Streak.create({ email });
+    }
+    res.json(streak);
+  } catch (error) {
+    console.error('Error fetching streak:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Daily check-in ("I stayed clean today")
+app.post('/api/streak/checkin', async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ error: 'email is required' });
+
+  try {
+    let streak = await Streak.findOne({ email });
+    if (!streak) {
+      streak = new Streak({ email });
+    }
+
+    const today = new Date();
+    const todayStr = toDayString(today);
+
+    if (streak.lastCheckIn && toDayString(streak.lastCheckIn) === todayStr) {
+      return res.status(400).json({ error: 'Already checked in today', streak });
+    }
+
+    if (!streak.lastCheckIn) {
+      // very first check-in
+      streak.currentStreak = 1;
+      streak.streakStartDate = today;
+    } else {
+      const dayDiff = Math.round(
+        (new Date(todayStr) - new Date(toDayString(streak.lastCheckIn))) / 86400000
+      );
+
+      if (dayDiff === 1) {
+        // consecutive day — streak continues
+        streak.currentStreak += 1;
+      } else {
+        // missed one or more days — streak resets
+        streak.currentStreak = 1;
+        streak.streakStartDate = today;
+      }
+    }
+
+    streak.lastCheckIn = today;
+    streak.longestStreak = Math.max(streak.longestStreak, streak.currentStreak);
+    streak.history.push({ date: today, type: 'checkin' });
+
+    await streak.save();
+    res.json(streak);
+  } catch (error) {
+    console.error('Error checking in:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Log a relapse (resets the current streak, keeps the longest streak on record)
+app.post('/api/streak/relapse', async (req, res) => {
+  const { email, note } = req.body;
+  if (!email) return res.status(400).json({ error: 'email is required' });
+
+  try {
+    let streak = await Streak.findOne({ email });
+    if (!streak) {
+      streak = new Streak({ email });
+    }
+
+    const today = new Date();
+
+    streak.currentStreak = 0;
+    streak.streakStartDate = today;
+    streak.lastCheckIn = null; // allows an immediate check-in to restart today
+    streak.history.push({ date: today, type: 'relapse', note: note || '' });
+
+    await streak.save();
+    res.json(streak);
+  } catch (error) {
+    console.error('Error logging relapse:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+module.exports = app; // only add this line if app.js doesn't already export app — check first, most likely skip this
 
 app.post('/', async (req, res) => {
   const { email, password } = req.body;

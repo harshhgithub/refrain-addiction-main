@@ -11,6 +11,7 @@ import {
   MdOutlineAssessment,
   MdChat,
   MdVideoCall,
+  MdLocalFireDepartment,
 } from "react-icons/md";
 import { sbIcon } from "../assets";
 import SubMenu from "./SubMenu";
@@ -227,6 +228,14 @@ const Sidebar = ({ email }) => {
                 </span>
               </NavLink>
             </li>
+            <li>
+  <NavLink to="/streak" className={navItemClass}>
+    <MdLocalFireDepartment size={22} className="min-w-max" />
+    <span className={`whitespace-nowrap transition-all duration-200 ${open ? "opacity-100" : "opacity-0"}`}>
+      Streak
+    </span>
+  </NavLink>
+</li>
 
             {/* Profile */}
             <li>
